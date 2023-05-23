@@ -1,7 +1,7 @@
 <script>
     import Element from "./MainElement.svelte";
     import ElementInfo from "./ElementInfo.svelte";
-    import PeriodicTable from "./PeriodicTable.svelte";
+    import PeriodicTable from "./Table/PeriodicTable.svelte";
 </script>
 
 <div class="index">
@@ -22,7 +22,7 @@
 
     .index {
         display: grid;
-        grid-template-columns: [one] 3rem [two] 1fr [three] 14fr [four] 1fr [five] 3fr [six] 64fr [seven] 4fr;
+        grid-template-columns: [one] 3rem [two] 1fr [three] 13fr [four] 1fr [five] 3rem [six] 64fr [seven] 4fr;
         grid-template-rows:  [one] 4rem [two] 14fr [three] 4fr [four] 30fr [five] 4fr;
         height: 100vh;
     }
