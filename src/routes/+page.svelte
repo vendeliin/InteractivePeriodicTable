@@ -1,30 +1,34 @@
 <script>
-    import Element from "./MainElement.svelte";
-    import ElementInfo from "./ElementInfo.svelte";
+    import Element from "./MainElement/MainElement.svelte";
+    import ElementInfo from "./InfoAboutMainElement/ElementInfo.svelte";
     import PeriodicTable from "./Table/PeriodicTable.svelte";
+
+
 </script>
 
+<!-- three main grid parts-->
 <div class="index">
     <div class="item-a">
         <Element />
     </div>
+
     <div class="item-b">
         <ElementInfo />
     </div>
+
     <div class="item-c">
         <PeriodicTable />
     </div>
-
 </div>
 
 <style>
 
-
     .index {
-        display: grid;
-        grid-template-columns: [one] 3rem [two] 1fr [three] 13fr [four] 1fr [five] 3rem [six] 64fr [seven] 4fr;
-        grid-template-rows:  [one] 4rem [two] 14fr [three] 4fr [four] 30fr [five] 4fr;
         height: 100vh;
+        width: 100%;
+        display: grid;
+        grid-template-columns: [one] 3fr [two] 1fr [three] 13fr [four] 1fr [five] 3fr [six] 64fr [seven] 4fr;
+        grid-template-rows:  [one] 4fr [two] 13fr [three] 4fr [four] 30fr [five] 4fr;
     }
 
     .item-a {

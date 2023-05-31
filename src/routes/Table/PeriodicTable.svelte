@@ -1,62 +1,64 @@
 <script>
     import {onMount} from "svelte";
+    import {elementsStore} from "$lib/stores.js";
 
-    import {elements} from "$lib/stores.js";
-
-
-
-    let headNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-    let sideMainNumbers = [1, 2, 3, 4, 5, 6, 7]
-    let downSideNumbers = [6, 7]
-        let _elements = []
-
+    import Element from "./Element.svelte";
+    import tableWithCategories from "./TableWithCategories.svelte";
+    import TableWithCategories from "./TableWithCategories.svelte";
 
     onMount(async () => {
         const response = await fetch("http://127.0.0.1:8000/get/all")
-        _elements = await response.json()
-        elements.set(_elements)
+        let elements = await response.json()
+        elementsStore.set(elements.elements)
     })
 
+    const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16, 17, 18]
+    const rows = [1, 2, 3, 4, 5, 6, 7]
+    const downRows = [6, 7]
 </script>
 
-<div class="grid-container">
-
-    {#each headNumbers as num}
-        <div class="numbers" style="grid-column: {num+1}/{num+2}; grid-row: 2/3">{num}</div>
+<div class="periodic-table">
+    <!-- creates numbers on the sides -->
+    {#each columns as column}
+        <div class="num" style="grid-column: {column + 1}; text-align: center; align-self: center;">{column}</div>
+    {/each}
+    {#each rows as row}
+        <div class="num" style="grid-row: {row + 1}; text-align: center; align-self: center;">{row}</div>
+    {/each}
+    {#each downRows as row}
+        <div class="num" style="grid-row: {row + 4}; grid-column: {3};text-align: center; align-self: center;">{row}</div>
     {/each}
 
-    <!--    <div class="element">-->
-    <!--        {#each elements as element}-->
-    <!--            <Element />-->
-    <!--        {/each}-->
-    <!--    </div>-->
+    <!-- create table with names of categories -->
+    <div class="table">
+        <TableWithCategories />
+    </div>
 
-    {#each sideMainNumbers as num}
-        <div class="numbers" style="grid-column: 1/2; grid-row: {num+2}/{num+3}">{num}</div>
-    {/each}
 
-    {#each downSideNumbers as num}
-        <div class="numbers" style="grid-column: 3/4; grid-row: {num+4}/{num+5}">{num}</div>
+<!--     create all elements-->
+    {#each $elementsStore as element}
+        <Element element = {element} />
     {/each}
 </div>
 
 
 <style>
-    .grid-container {
+    .periodic-table {
         background-color: #C6B4B4;
+
         height: 100%;
         border-radius: 5px;
 
         display: grid;
         grid-template-columns: repeat(20, 1fr);
-        grid-gap: 3px;
-        grid-template-rows: repeat(12, 1fr);
+        grid-template-rows: repeat(11, 1fr);
     }
-
-    .numbers {
-        font-size: 20px;
-        text-align: center;
-        align-self: center;
+    .num {
+        height: 3.4rem;
+        width: 3.1rem;
     }
-
+    .table {
+        grid-row: 3/6;
+        grid-column: 5/13;
+    }
 </style>

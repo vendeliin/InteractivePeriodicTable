@@ -1,31 +1,20 @@
 <script>
-    import {onMount} from "svelte";
-    import {element} from "$lib/stores.js";
-
-
-    let _element = []
-
-    onMount(async () => {
-        const response = await fetch("http://127.0.0.1:8000/get/110")
-        _element = await response.json()
-        element.set(_element)
-    })
-
+    import {hoveredElementStore} from "$lib/stores.js";
 </script>
 
 
 <div class="grid-container">
     <div class="symbols item">
         <div class="periodic-symbol">
-            <p>{$element.symbol}</p>
+            <p>{$hoveredElementStore.symbol}</p>
         </div>
         <div class="periodic-number">
-            <p>{$element.id}</p>
+            <p>{$hoveredElementStore.number}</p>
         </div>
     </div>
 
     <div class="periodic-name item">
-        <p>{$element.element}</p>
+        <p>{$hoveredElementStore.name}</p>
     </div>
 </div>
 
@@ -39,7 +28,7 @@
 
         height: 100%;
         display: grid;
-        grid-template-rows: [first] 1fr [second] 1fr;
+        grid-template-rows: 1fr 1fr;
     }
 
     .symbols {

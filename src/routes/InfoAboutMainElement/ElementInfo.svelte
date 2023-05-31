@@ -1,15 +1,5 @@
 <script>
-    import {onMount} from "svelte";
-    import {element} from "$lib/stores.js";
-
-
-    let _element = []
-
-    onMount(async () => {
-        const response = await fetch("http://127.0.0.1:8000/get/110")
-        _element = await response.json()
-        element.set(_element)
-    })
+    import {hoveredElementStore} from "$lib/stores.js";
 
 </script>
 
@@ -20,34 +10,34 @@
             <p>Atomic Mass</p>
         </div>
         <div class="value">
-            <p>{$element.atomicMass}</p>
+            <p>{$hoveredElementStore.atomic_mass}</p>
         </div>
     </div>
 
     <div class="item neutrons">
         <div class="key">
-            <p>Number of neutrons</p>
+            <p>Boil</p>
         </div>
         <div class="value">
-            <p>{$element.numberOfNeutrons}</p>
+            <p>{$hoveredElementStore.boil}</p>
         </div>
     </div>
 
     <div class="item protons">
         <div class="key">
-            <p>Number of protons</p>
+            <p>Category</p>
         </div>
         <div class="value">
-            <p>{$element.numberOfProtons}</p>
+            <p>{$hoveredElementStore.category}</p>
         </div>
     </div>
 
     <div class="item electrons">
         <div class="key">
-            <p>Number of electrons</p>
+            <p>Block</p>
         </div>
         <div class="value">
-            <p>{$element.numberOfElectrons}</p>
+            <p>{$hoveredElementStore.block}</p>
         </div>
     </div>
 
@@ -56,7 +46,7 @@
             <p>Period</p>
         </div>
         <div class="value">
-            <p>{$element.period}</p>
+            <p>{$hoveredElementStore.period}</p>
         </div>
     </div>
 
@@ -65,7 +55,7 @@
             <p>Group</p>
         </div>
         <div class="value">
-            <p>{$element.group}</p>
+            <p>{$hoveredElementStore.group}</p>
         </div>
     </div>
 
@@ -74,7 +64,7 @@
             <p>Phase</p>
         </div>
         <div class="value">
-            <p>{$element.phase}</p>
+            <p>{$hoveredElementStore.phase}</p>
         </div>
     </div>
 
@@ -90,36 +80,24 @@
         height: 100%;
         display: grid;
 
-        grid-template-columns: [one] 1rem [two] 1fr [three] 1rem;
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .item {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        margin: 1rem 0 1rem 0;
-
         align-self: center;
         grid-column: two/three;
     }
 
+
+    .key {
+        margin-left: 5px;
+    }
     .value {
         justify-self: end;
-    }
-
-    .mass {
-    }
-
-    .neutrons {
-
-    }
-
-    .protons {
-
-    }
-
-    .electrons {
-
+        margin-right: 5px;
     }
 
 
